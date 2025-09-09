@@ -27,14 +27,16 @@
                             @if ($permissions->isNotempty())
                                 @foreach ($permissions as $permission)
                                     <tr class="border-b">
-                                        <td class="px-6 py-3 text-left">{{ $permission->id }}</td>
+                                        <td class="px-6 py-3 text-left">{{ ($permissions->currentPage() - 1) * $permissions->perPage() + $loop->iteration }}
+                                        </td>
                                         <td class="px-6 py-3 text-left">{{ $permission->name }}</td>
                                         <td class="px-6 py-3 text-left">
                                             {{ \Carbon\Carbon::parse($permission->created_at)->format('d M, Y') }}</td>
                                         <td class="px-6 py-3 text-center">
-                                            <a href="{{ route('permissions.edit',$permission->id) }}"
+                                            <a href="{{ route('permissions.edit', $permission->id) }}"
                                                 class="bg-slate-700 hover:bg-slate-500 text-sm rounded-md px-3 py-2 text-white ">Edit</a>
-                                            <a href="#"
+                                            <a href="javascript:void(0)"
+                                                onclick="deletePermission({{ $permission->id }})"
                                                 class="bg-red-700 hover:bg-red-500 text-sm rounded-md px-3 py-2 text-white ">Delete</a>
 
                                         </td>
@@ -51,4 +53,27 @@
                 </div>
             </div>
         </div>
+    </div>
+    <x-slot name="script">
+        <script type="text/javascript">
+            function deletePermission(id) {
+                if (confirm("Are you sure you want to delete?")) {
+                    $.ajax({
+                        url: '{{ route('permissions.destroy') }}',
+                        type: 'delete',
+                        data: {
+                            id
+                        },
+                        dataType: 'json',
+                        headers: {
+                            'x-csrf-token': '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            window.location.href = "{{ route('permissions.index') }}";
+                        }
+                    })
+                }
+            }
+        </script>
+    </x-slot>
 </x-app-layout>
