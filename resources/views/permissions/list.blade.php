@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Permissions') }}
+                {{ __('Permissions / Lists') }}
             </h2>
             <a href="{{ route('permissions.create') }}"
                 class="bg-blue-600 text-sm rounded-md px-3 py-2 text-white ">Create</a>
