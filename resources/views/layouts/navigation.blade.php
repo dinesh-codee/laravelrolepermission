@@ -17,15 +17,24 @@
                     </x-nav-link>
                 </div>
 
+                <!-- Permission Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('permissions.index')" :active="request()->routeIs('permissions.index')">
                         {{ __('Permissions') }}
                     </x-nav-link>
                 </div>
                 
+                <!-- Role Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')">
                         {{ __('Roles') }}
+                    </x-nav-link>
+                </div>
+
+                <!-- Article Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
+                        {{ __('Articles') }}
                     </x-nav-link>
                 </div>
             </div>
