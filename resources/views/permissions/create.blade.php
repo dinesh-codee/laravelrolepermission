@@ -7,8 +7,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Permissions / Create
             </h2>
+            @can('read permissions')                
             <a href="{{ route('permissions.index') }}"
-                class="bg-blue-600 text-sm rounded-md px-3 py-2 text-white ">Back</a>
+            class="bg-blue-600 text-sm rounded-md px-3 py-2 text-white ">Back</a>
+            @endcan
         </div>
         {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Premission') }}

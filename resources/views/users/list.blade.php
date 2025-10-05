@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Roles') }}
+                {{ __('Users') }}
             </h2>
 
-            @can('create roles')                
+            @can('create users')
             <a href="{{ route('roles.create') }}" class="bg-blue-600 text-sm rounded-md px-3 py-2 text-white ">Create</a>
             @endcan
             
@@ -22,40 +22,40 @@
                             <tr class="border-b">
                                 <th class="px-6 py-3 text-left" width="60">#</th>
                                 <th class="px-6 py-3 text-left">Name</th>
-                                <th class="px-6 py-3 text-left">Permissions</th>
+                                <th class="px-6 py-3 text-left">Email</th>
+                                <th class="px-6 py-3 text-left">Roles</th>
                                 <th class="px-6 py-3 text-left" width="180">Created</th>
                                 <th class="px-6 py-3 text-center" width="180">Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            @if ($roles->isNotempty())
-                                @foreach ($roles as $role)
+                            @if ($users->isNotempty())
+                                @foreach ($users as $user)
                                     <tr>
                                         <td class="px-6 py-3 text-left">
-                                            {{ ($roles->currentPage() - 1) * $roles->perPage() + $loop->iteration }}
+                                            {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
                                         </td>
 
-
-                                        {{-- <td class="px-6 py-3 text-left">
-                                            {{ ($roles->currentPage() - 1) * $roles->perPage() + $loop->iteration }}
-                                        </td> --}}
-                                        {{-- <td class="px-6 py-3 text-left">{{ $role->id }}</td> --}}
-                                        <td class="px-6 py-3 text-left">{{ $role->name }}</td>
+                                        <td class="px-6 py-3 text-left">{{ $user->name }}</td>
+                                        <td class="px-6 py-3 text-left">{{ $user->email }}</td>
+                                        <td class="px-6 py-3 text-left">{{ $user->roles->pluck('name')->implode(', ') }}
+                                        </td>
                                         <td class="px-6 py-3 text-left">
-                                            {{ $role->permissions->pluck('name')->implode(', ') }}</td>
-                                        <td class="px-6 py-3 text-left">
-                                            {{ \Carbon\Carbon::parse($role->created_at)->format('d M, Y') }}</td>
+                                            {{ \Carbon\Carbon::parse($user->created_at)->format('d M, Y') }}</td>
                                         <td class="px-6 py-3 text-center">
 
-                                            @can('edit roles')
-                                                <a href="{{ route('roles.edit', $role->id) }}"
+                                            @can('edit users')
+                                                <a href="{{ route('users.edit', $user->id) }}"
                                                     class="bg-slate-700 hover:bg-slate-500 text-sm rounded-md px-3 py-2 text-white ">Edit</a>
                                             @endcan
 
-                                            @can('delete roles')
-                                                <a href="javascript:void(0)" onclick="deleteRole({{ $role->id }})"
+                                            {{-- @can('delete users')
+                                                <a href="javascript:void(0)" onclick="deleteRole({{ $user->id }})"
                                                     class="bg-red-700 hover:bg-red-500 text-sm rounded-md px-3 py-2 text-white ">Delete</a>
-                                            @endcan
+                                            @endcan --}}
+
+                                            {{-- <a href="javascript:void(0)" onclick="deleteuser({{ $user->id }})"
+                                                class="bg-red-700 hover:bg-red-500 text-sm rounded-md px-3 py-2 text-white ">Delete</a> --}}
 
                                         </td>
                                     </tr>
@@ -66,7 +66,7 @@
                     </table>
 
                     <div class="my-3">
-                        {{ $roles->links() }}
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

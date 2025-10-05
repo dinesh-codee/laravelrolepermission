@@ -4,8 +4,12 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Permissions / Lists') }}
             </h2>
+
+            @can('create permissions')
             <a href="{{ route('permissions.create') }}"
                 class="bg-blue-600 text-sm rounded-md px-3 py-2 text-white ">Create</a>
+            @endcan
+            
         </div>
     </x-slot>
 
@@ -27,17 +31,24 @@
                             @if ($permissions->isNotempty())
                                 @foreach ($permissions as $permission)
                                     <tr class="border-b">
-                                        <td class="px-6 py-3 text-left">{{ ($permissions->currentPage() - 1) * $permissions->perPage() + $loop->iteration }}
+                                        <td class="px-6 py-3 text-left">
+                                            {{ ($permissions->currentPage() - 1) * $permissions->perPage() + $loop->iteration }}
                                         </td>
                                         <td class="px-6 py-3 text-left">{{ $permission->name }}</td>
                                         <td class="px-6 py-3 text-left">
                                             {{ \Carbon\Carbon::parse($permission->created_at)->format('d M, Y') }}</td>
                                         <td class="px-6 py-3 text-center">
-                                            <a href="{{ route('permissions.edit', $permission->id) }}"
-                                                class="bg-slate-700 hover:bg-slate-500 text-sm rounded-md px-3 py-2 text-white ">Edit</a>
-                                            <a href="javascript:void(0)"
-                                                onclick="deletePermission({{ $permission->id }})"
-                                                class="bg-red-700 hover:bg-red-500 text-sm rounded-md px-3 py-2 text-white ">Delete</a>
+                                            @can('edit permissions')
+                                                <a href="{{ route('permissions.edit', $permission->id) }}"
+                                                    class="bg-slate-700 hover:bg-slate-500 text-sm rounded-md px-3 py-2 text-white ">Edit</a>
+                                            @endcan
+                                            
+                                            @can('delete permissions')
+                                                <a href="javascript:void(0)"
+                                                    onclick="deletePermission({{ $permission->id }})"
+                                                    class="bg-red-700 hover:bg-red-500 text-sm rounded-md px-3 py-2 text-white ">Delete</a>
+                                            @endcan
+
 
                                         </td>
                                     </tr>
